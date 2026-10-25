@@ -31,6 +31,9 @@ def init_db():
     conn.commit()
     conn.close()
 
+# Executa a criação da tabela imediatamente ao carregar o app (para o Gunicorn criar a BD)
+init_db()
+
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="pt-PT">
@@ -508,6 +511,5 @@ def deletar(aluno_id):
     return jsonify({"ok": True})
 
 if __name__ == '__main__':
-    init_db()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
